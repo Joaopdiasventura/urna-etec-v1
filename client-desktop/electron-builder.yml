@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: URNA ETEC
+productName: client-desktop
 directories:
   buildResources: build
 files:
@@ -11,9 +11,8 @@ files:
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
 asarUnpack:
   - resources/**
-afterSign: 
 win:
-  executableName: URNA ETEC
+  executableName: client-desktop
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
@@ -26,6 +25,7 @@ mac:
     - NSMicrophoneUsageDescription: Application requests access to the device's microphone.
     - NSDocumentsFolderUsageDescription: Application requests access to the user's Documents folder.
     - NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
+  notarize: false
 dmg:
   artifactName: ${name}-${version}.${ext}
 linux:
@@ -41,3 +41,5 @@ npmRebuild: false
 publish:
   provider: generic
   url: https://example.com/auto-updates
+electronDownload:
+  mirror: https://npmmirror.com/mirrors/electron/
