@@ -1,4 +1,4 @@
 export class Representant {
-    name: string;
-    course: string;
+	name: string;
+	course: string;
 }

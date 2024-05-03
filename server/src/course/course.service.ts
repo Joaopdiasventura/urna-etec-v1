@@ -18,15 +18,18 @@ export class CourseService {
 		});
 	}
 
-	findAll() {
-		return `This action returns all course`;
+	async findAll(): Promise<Course[]> {
+		return await this.prisma.course.findMany();
+	}
+	async findNotConcluded(): Promise<Course[]> {
+		return await this.prisma.course.findMany({
+			where: { concluded: false },
+		});
 	}
 
-	findOne(id: number) {
-		return `This action returns a #${id} course`;
-	}
-
-	remove(id: number) {
-		return `This action removes a #${id} course`;
+	async delete(name: string): Promise<Course | string> {
+		const course = await this.prisma.course.findUnique({ where: { name } });
+		if (!course) return "Esse curso não está cadastrado";
+		return await this.prisma.course.delete({ where: { name } });
 	}
 }

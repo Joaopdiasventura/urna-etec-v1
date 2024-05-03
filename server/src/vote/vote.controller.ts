@@ -21,10 +21,10 @@ export class VoteController {
 		private readonly appGateway: AppGateway,
 	) {}
 
-	sendVote = (result: Vote) => {
+	sendVote(result: Vote) {
 		this.appGateway.handleVote(result);
 		return result;
-	};
+	}
 
 	@Post()
 	async create(

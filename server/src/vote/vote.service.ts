@@ -57,7 +57,7 @@ export class VoteService {
 	async findByCourse(course: string): Promise<allVotes | string> {
 		const existCourse = await this.prisma.course.findUnique({
 			where: { name: course },
-		});		
+		});
 
 		if (!existCourse) return "Esse curso não está cadastrado";
 

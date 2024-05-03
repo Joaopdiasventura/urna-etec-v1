@@ -1,4 +1,4 @@
 export class Course {
-    name: string;
-    concluded: boolean;
+	name: string;
+	concluded: boolean;
 }

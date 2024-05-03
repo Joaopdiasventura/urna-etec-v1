@@ -1,3 +1,3 @@
 export class CreateCourseDto {
-    name: string;
+	name: string;
 }

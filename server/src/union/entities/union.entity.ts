@@ -1,3 +1,3 @@
 export class Union {
-    name: string;
+	name: string;
 }

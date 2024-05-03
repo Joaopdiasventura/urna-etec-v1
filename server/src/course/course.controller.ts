@@ -22,10 +22,12 @@ export class CourseController {
 		@Res() res: FastifyReply,
 	) {
 		const result = await this.courseService.create(createCourseDto);
-    
+
 		return res
 			.status(
-				HttpStatus[typeof result == "string" ? "BAD_REQUEST" : "CREATED"],
+				HttpStatus[
+					typeof result == "string" ? "BAD_REQUEST" : "CREATED"
+				],
 			)
 			.send(typeof result == "string" ? { msg: result } : result);
 	}
@@ -35,13 +37,19 @@ export class CourseController {
 		return this.courseService.findAll();
 	}
 
-	@Get(":id")
-	findOne(@Param("id") id: string) {
-		return this.courseService.findOne(+id);
+	@Get("/not")
+	findNotConcluded() {
+		return this.courseService.findNotConcluded();
 	}
 
-	@Delete(":id")
-	remove(@Param("id") id: string) {
-		return this.courseService.remove(+id);
+	@Delete(":name")
+	async remove(@Param("name") name: string, @Res() res: FastifyReply) {
+		const result = await this.courseService.delete(name);
+
+		return res
+			.status(
+				HttpStatus[typeof result == "string" ? "BAD_REQUEST" : "OK"],
+			)
+			.send(typeof result == "string" ? { msg: result } : result);
 	}
 }

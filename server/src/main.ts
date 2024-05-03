@@ -12,13 +12,13 @@ async function bootstrap() {
 		AppModule,
 		new FastifyAdapter(),
 	);
-	
+
 	const corsOptions = {
 		origin: [process.env.FRONTEND],
 		methods: ["GET", "DELETE", "POST", "PUT"],
 		allowedHeaders: ["Content-Type", "Authorization"],
-	  };
-	
+	};
+
 	app.enableCors(corsOptions);
 
 	await app.listen(port, "0.0.0.0");
