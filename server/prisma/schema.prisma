@@ -8,20 +8,27 @@ datasource db {
 }
 
 model Representant {
-  name String @id @map("_id")
-  course String
-  votes Vote[]
+  name       String @id @map("_id")
+  course     String
+  votes      Vote[]
+  courseName Course @relation(fields: [course], references: [name], onDelete: Cascade)
+}
+
+model Course {
+  name         String         @id @map("_id")
+  concluded    Boolean        @default(false)
+  representant Representant[]
 }
 
 model Union {
-  name String @id @map("_id")
+  name  String @id @map("_id")
   votes Vote[]
 }
 
 model Vote {
-  id String @id @map("_id") @db.ObjectId @default(auto())
-  representant String
-  union String
+  id               String       @id @default(auto()) @map("_id") @db.ObjectId
+  representant     String
+  union            String
   representantName Representant @relation(fields: [representant], references: [name], onDelete: Cascade)
-  unionName Union @relation(fields: [union], references: [name], onDelete: Cascade)
+  unionName        Union        @relation(fields: [union], references: [name], onDelete: Cascade)
 }
