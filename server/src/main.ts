@@ -14,7 +14,7 @@ async function bootstrap() {
 	);
 
 	const corsOptions = {
-		origin: [process.env.FRONTEND],
+		origin: process.env.FRONTEND,
 		methods: ["GET", "DELETE", "POST", "PUT"],
 		allowedHeaders: ["Content-Type", "Authorization"],
 	};
