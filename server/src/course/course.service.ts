@@ -21,9 +21,19 @@ export class CourseService {
 	async findAll(): Promise<Course[]> {
 		return await this.prisma.course.findMany();
 	}
+
 	async findNotConcluded(): Promise<Course[]> {
 		return await this.prisma.course.findMany({
 			where: { concluded: false },
+		});
+	}
+
+	async conclude(name: string): Promise<Course | string> {
+		const course = await this.prisma.course.findUnique({ where: { name } });
+		if (!course) return "Esse curso não existe";
+		await this.prisma.course.update({
+			where: { name },
+			data: { concluded: true },
 		});
 	}
 

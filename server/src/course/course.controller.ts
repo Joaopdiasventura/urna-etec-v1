@@ -23,23 +23,28 @@ export class CourseController {
 	) {
 		const result = await this.courseService.create(createCourseDto);
 
-		return res
-			.status(
-				HttpStatus[
-					typeof result == "string" ? "BAD_REQUEST" : "CREATED"
-				],
-			)
-			.send(typeof result == "string" ? { msg: result } : result);
+		return typeof result == "string"
+			? res.status(HttpStatus.BAD_REQUEST).send({ msg: result })
+			: res.status(HttpStatus.CREATED).send(result);
 	}
 
 	@Get()
-	findAll() {
-		return this.courseService.findAll();
+	async findAll() {
+		return await this.courseService.findAll();
 	}
 
 	@Get("/not")
-	findNotConcluded() {
-		return this.courseService.findNotConcluded();
+	async findNotConcluded() {
+		return await this.courseService.findNotConcluded();
+	}
+
+	@Post(":name")
+	async conclude(@Param("name") name: string, @Res() res: FastifyReply) {
+		const result = await this.courseService.conclude(name);
+
+		return typeof result == "string"
+			? res.status(HttpStatus.BAD_REQUEST).send({ msg: result })
+			: res.status(HttpStatus.CREATED).send(result);
 	}
 
 	@Delete(":name")
