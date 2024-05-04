@@ -19,7 +19,7 @@ export class UnionService {
 	}
 
 	async findAll(): Promise<Union[]> {
-		return await this.prisma.representant.findMany();
+		return await this.prisma.union.findMany();
 	}
 
 	async remove(name: string): Promise<Union | string> {
