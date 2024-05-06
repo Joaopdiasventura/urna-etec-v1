@@ -24,8 +24,6 @@ app.whenReady().then(() => {
 
   mainWindow.maximize();
 
-  mainWindow.webContents.openDevTools();
-
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();
   });
@@ -64,12 +62,12 @@ app.whenReady().then(() => {
   const change = () => {
     if (mainWindow.isMaximized()) {
       mainWindow.unmaximize();
-      mainWindow.setSize(900, 670)
+      mainWindow.setSize(900, 670);
       mainWindow.center();
     } else {
       mainWindow.maximize();
     }
-  }
+  };
 
   ipcMain.on("change-window", () => change());
 });

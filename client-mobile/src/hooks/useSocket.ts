@@ -3,7 +3,7 @@ import { io, Socket } from "socket.io-client";
 
 const SERVER_URL = "https://urna-etec.onrender.com";
 
-export const useSocket = (course: string) => {
+export const useSocket = () => {
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
@@ -13,7 +13,6 @@ export const useSocket = (course: string) => {
 
     socketIo.on("connect", () => {
       console.log("Conectado ao servidor!");
-      socketIo.emit("registerEmail", course);
     });
 
     socketIo.on("disconnect", () => {
@@ -25,7 +24,7 @@ export const useSocket = (course: string) => {
     return () => {
       socketIo.disconnect();
     };
-  }, [course]);
+  }, []);
 
   return socket;
 };
