@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
-const SERVER_URL = "https://urna-etec.onrender.com";
+export const SERVER_URL = "https://urna-etec.onrender.com";
 
 export const useSocket = () => {
   const [socket, setSocket] = useState<Socket | null>(null);

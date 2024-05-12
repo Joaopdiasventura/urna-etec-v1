@@ -36,6 +36,7 @@ export default function ClassVotes() {
     <View>
       <HeaderComponent />
       <SelectComponent
+        
         onValueChange={(event: ChangeEvent) => {
           setSelectedCourse("opa");
           alert(selectedCourse);

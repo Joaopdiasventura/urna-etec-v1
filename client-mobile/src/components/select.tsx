@@ -1,44 +1,25 @@
-import React, { ComponentProps, useEffect, useRef, useState } from "react";
+import React from "react";
 import { Picker } from "@react-native-picker/picker";
-import axios from "axios";
 
-export function SelectComponent(props: ComponentProps<any>) {
-  const [courses, setCourses] = useState<any[]>([]);
-  const [selectedCourse, setSelectedCourse] = useState("");
+interface SelectComponentProps {
+  courses: string[];
+  currentCourse: string;
+  [key: string]: any;
+}
 
-  const getData = async () => {
-    const url = `https://urna-etec.onrender.com/course`;
-    console.log(url);
-
-    try {
-      const response = await axios.get(url);
-      const result = await response.data;
-      console.log(result);
-
-      setCourses(result);
-      if (result.length > 0) {
-        setSelectedCourse(result[0].name);
-      }
-    } catch (error) {
-      console.error("Failed to fetch courses:", error);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+export function SelectComponent({ courses, currentCourse, ...props }: SelectComponentProps) {
 
   return (
     <Picker
-      selectedValue={selectedCourse}
-      className="w-10 h-2"
+      selectedValue={currentCourse}
+      style={{ width: 40, height: 8 }} 
       {...props}
     >
-      {courses.map((course) => (
+      {courses.map((course, index) => (
         <Picker.Item
-          key={course.name}
-          label={course.name}
-          value={course.name}
+          key={course}
+          label={course}
+          value={course}
         />
       ))}
     </Picker>
