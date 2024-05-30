@@ -3,6 +3,7 @@ import { OkButton } from "@renderer/components/okButton";
 import { usePageContext } from "@renderer/contexts/page";
 import { Representant, Union } from "@renderer/models";
 import { FormEvent, useEffect, useState } from "react";
+import { TailSpin } from "react-loader-spinner";
 
 export function Voting() {
   const [representants, setRepresentants] = useState<Representant[]>([]);
@@ -10,10 +11,12 @@ export function Voting() {
 
   const [representant, setRepresentant] = useState<string>("");
   const [union, setUnion] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { setCurrentPage, setHeader } = usePageContext();
 
   const getData = async () => {
+    setIsLoading(true);
     const course = localStorage.getItem("course");
     const Representants: Representant[] = await app
       .get("/representant/" + course)
@@ -21,10 +24,12 @@ export function Voting() {
     const Unions: Union[] = await app.get("/union").then((Result) => Result.data);
     setRepresentants(Representants);
     setUnions(Unions);
+    setIsLoading(false);
   };
 
   const vote = async (event: FormEvent) => {
     event.preventDefault();
+    setIsLoading(true);
     const students = parseInt(localStorage.getItem("students") || "") - 1;
     localStorage.setItem("students", `${students}`);
     if (students == 0) {
@@ -33,12 +38,14 @@ export function Voting() {
       await app.post("/vote", { representant, union });
       setUnion("");
       setRepresentant("");
+      setIsLoading(false);
     }
   };
 
   const endVotes = () => {
     const course = localStorage.getItem("course");
     app.post("/course/" + course);
+    setIsLoading(false);
     setCurrentPage("start");
     setHeader(true);
     localStorage.setItem("allVotes", JSON.stringify([]));
@@ -47,9 +54,9 @@ export function Voting() {
   useEffect(() => {
     getData();
   }, []);
-  return (
+  return !isLoading ? (
     <div className="flex flex-col">
-      <h1>Realize seu voto</h1>
+      <h1 className="font-bold text-center text-xl">REALIZE SEU VOTO</h1>
       <form
         className="flex justify-center items-center flex-col border rounded gap-2 p-4"
         onSubmit={vote}
@@ -94,5 +101,7 @@ export function Voting() {
         <OkButton value="VOTAR" />
       </form>
     </div>
+  ) : (
+    <TailSpin color="#ff0000" height={80} width={80} />
   );
 }

@@ -2,6 +2,7 @@ import { usePageContext } from "@renderer/contexts/page";
 import { Start } from "./start";
 import { StartVotes } from "./startVotes";
 import { Voting } from "./voting";
+import { TailSpin } from "react-loader-spinner";
 
 export function CurrentPage() {
   const { currentPage } = usePageContext();

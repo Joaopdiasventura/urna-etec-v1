@@ -19,7 +19,7 @@ export function HeaderComponent(): JSX.Element {
   }, []);
 
   return header ? (
-    <header className="bg-red-600 flex flex-row text-white items-center justify-between p-1 w-full">
+    <header className="bg-red flex flex-row text-white items-center justify-between p-1 w-full">
       <div className="flex items-center gap-2">
         <img
           src={icon}
@@ -43,15 +43,5 @@ export function HeaderComponent(): JSX.Element {
         </button>
       </div>
     </header>
-  ) : (
-    <>
-      <button
-        onClick={() => {
-          setHeader(true);
-        }}
-      >
-        opa
-      </button>
-    </>
-  );
+  ) : <></>;
 }

@@ -23,9 +23,10 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
-    "axios": "^1.6.8",
+    "axios": "^1.7.2",
     "dotenv": "^16.4.5",
-    "electron-updater": "^6.1.7"
+    "electron-updater": "^6.1.7",
+    "react-loader-spinner": "^6.1.6"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^2.0.0",
